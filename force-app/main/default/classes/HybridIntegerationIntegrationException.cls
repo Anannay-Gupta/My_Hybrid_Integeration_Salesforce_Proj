@@ -40,6 +40,6 @@ public class HybridIntegerationIntegrationException extends Exception {
 
     /** Text that is safe to show to end users. */
     public String getSafeMessage() {
-        return String.isBlank(userMessage) ? 'The weather request could not be completed.' : userMessage;
+        return String.isBlank(userMessage) ? 'The request could not be completed.' : userMessage;
     }
 }

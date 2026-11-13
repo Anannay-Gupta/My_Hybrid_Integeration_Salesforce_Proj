@@ -36,13 +36,13 @@ public with sharing class HybridIntegerationHttpClient {
                 throw new HybridIntegerationIntegrationException(
                     HybridIntegerationIntegrationException.TIMEOUT,
                     'Callout timed out after ' + effectiveTimeout + ' ms: ' + msg,
-                    'The weather service took too long to respond. Please try again.'
+                    'The service took too long to respond. Please try again.'
                 );
             }
             throw new HybridIntegerationIntegrationException(
                 HybridIntegerationIntegrationException.CALLOUT_FAILED,
                 'Callout failed: ' + msg,
-                'The weather service could not be reached. Please try again later.'
+                'The service could not be reached. Please try again later.'
             );
         }
     }

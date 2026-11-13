@@ -26,6 +26,18 @@ public class HybridIntegerationTestSupport {
         return weatherJson('2026-11-12T14:30', 0);
     }
 
+    public static String airQualityJson(String localTime, Integer utcOffsetSeconds) {
+        return '{"latitude":51.5,"longitude":-0.12,"utc_offset_seconds":' + utcOffsetSeconds
+            + ',"timezone":"Europe/London","timezone_abbreviation":"GMT"'
+            + ',"current_units":{"time":"iso8601","interval":"seconds","pm10":"ug/m3","pm2_5":"ug/m3","us_aqi":"USAQI","european_aqi":"EAQI"}'
+            + ',"current":{"time":"' + localTime + '","interval":3600,"pm10":20.456,"pm2_5":10.123,'
+            + '"ozone":55.5,"nitrogen_dioxide":18.0,"us_aqi":42,"european_aqi":35}}';
+    }
+
+    public static String okAirQualityJson() {
+        return airQualityJson('2026-11-12T14:30', 0);
+    }
+
     /** Call from @TestSetup so DML is committed before any mock callout. */
     public static void createLocations() {
         insert new List<Location_Profile__c>{
