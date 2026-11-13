@@ -22,6 +22,10 @@ public class HybridIntegerationIntegrationException extends Exception {
     public static final String INVALID_TIMESTAMP   = 'INVALID_TIMESTAMP';
     public static final String DML_FAILURE         = 'DML_FAILURE';
     public static final String UNEXPECTED          = 'UNEXPECTED';
+    public static final String INVALID_COUNTRY     = 'INVALID_COUNTRY';
+    public static final String INVALID_CATEGORY    = 'INVALID_CATEGORY';
+    public static final String INVALID_RECORD      = 'INVALID_RECORD';
+    public static final String QUOTA_EXCEEDED      = 'QUOTA_EXCEEDED';
 
     public String errorCode { get; private set; }
     public Integer httpStatus { get; private set; }

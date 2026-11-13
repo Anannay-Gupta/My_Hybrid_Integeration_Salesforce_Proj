@@ -3,6 +3,7 @@
 public class HybridIntegerationTestSupport {
     public static HttpRequest lastRequest;
     public static Integer callCount = 0;
+    public static List<String> requestedEndpoints = new List<String>();
 
     public static final String LOC_VALID = 'TS Valid';
     public static final String LOC_NULL = 'TS Null Coordinates';
@@ -12,6 +13,7 @@ public class HybridIntegerationTestSupport {
     public static void reset() {
         lastRequest = null;
         callCount = 0;
+        requestedEndpoints.clear();
     }
 
     public static String weatherJson(String localTime, Integer utcOffsetSeconds) {
@@ -36,6 +38,42 @@ public class HybridIntegerationTestSupport {
 
     public static String okAirQualityJson() {
         return airQualityJson('2026-11-12T14:30', 0);
+    }
+
+    /** One holiday object as returned by API Ninjas v2 /holidays. */
+    public static String holidayItem(String iso, String dateText, String name, String apiType) {
+        return '{"country":"Test Country","iso":"' + iso + '","year":' + dateText.left(4) + ',"date":"' + dateText
+            + '","day":"Monday","name":"' + name + '","type":"' + apiType + '"}';
+    }
+
+    public static String holidayArray(List<String> items) {
+        return '[' + String.join(items, ',') + ']';
+    }
+
+    /** Responds per request based on the type= query parameter; records every endpoint called. */
+    public class RoutedMock implements HttpCalloutMock {
+        public Map<String, String> bodyByType = new Map<String, String>();
+        public Map<String, Integer> statusByType = new Map<String, Integer>();
+        public String exceptionMessage;   // thrown for requests of exceptionType (or all requests if null)
+        public String exceptionType;
+
+        public HttpResponse respond(HttpRequest req) {
+            lastRequest = req;
+            callCount++;
+            requestedEndpoints.add(req.getEndpoint());
+            Matcher m = Pattern.compile('[?&]type=([^&]+)').matcher(req.getEndpoint());
+            String apiType = m.find() ? m.group(1) : null;
+            if (exceptionMessage != null && (exceptionType == null || exceptionType == apiType)) {
+                CalloutException ce = new CalloutException();
+                ce.setMessage(exceptionMessage);
+                throw ce;
+            }
+            HttpResponse res = new HttpResponse();
+            res.setStatusCode(statusByType.containsKey(apiType) ? statusByType.get(apiType) : 200);
+            res.setHeader('Content-Type', 'application/json');
+            res.setBody(bodyByType.containsKey(apiType) ? bodyByType.get(apiType) : '[]');
+            return res;
+        }
     }
 
     /** Call from @TestSetup so DML is committed before any mock callout. */
