@@ -21,14 +21,34 @@
                 <label>Bank</label>
             </value>
             <value>
-                <fullName>School</fullName>
+                <fullName>State</fullName>
                 <default>false</default>
-                <label>School</label>
+                <label>State</label>
             </value>
             <value>
-                <fullName>Authorities</fullName>
+                <fullName>Local</fullName>
                 <default>false</default>
-                <label>Authorities</label>
+                <label>Local</label>
+            </value>
+            <value>
+                <fullName>Province_Territory</fullName>
+                <default>false</default>
+                <label>Province/Territory</label>
+            </value>
+            <value>
+                <fullName>Government</fullName>
+                <default>false</default>
+                <label>Government</label>
+            </value>
+            <value>
+                <fullName>Private</fullName>
+                <default>false</default>
+                <label>Private</label>
+            </value>
+            <value>
+                <fullName>Observance</fullName>
+                <default>false</default>
+                <label>Observance</label>
             </value>
             <value>
                 <fullName>Optional</fullName>
@@ -36,9 +56,9 @@
                 <label>Optional</label>
             </value>
             <value>
-                <fullName>Observance</fullName>
+                <fullName>Religious</fullName>
                 <default>false</default>
-                <label>Observance</label>
+                <label>Religious</label>
             </value>
         </valueSetDefinition>
     </valueSet>
